@@ -140,14 +140,14 @@ def get_upstream_version(app, branch=None, bench_path="."):
 
 	try:
 		subprocess.call(
-			f"git fetch --depth=1 --no-tags upstream {branch}", shell=True, cwd=repo_dir
+			f"git fetch --depth=1 upstream {branch}", shell=True, cwd=repo_dir
 		)
 	except CommandFailedError:
 		raise InvalidRemoteException(f"Failed to fetch from remote named upstream for {app}")
 
 	try:
 		contents = subprocess.check_output(
-			f"git show upstream/{branch}:{app}/__init__.py",
+			f"git show {branch}:{app}/__init__.py",
 			shell=True,
 			cwd=repo_dir,
 			stderr=subprocess.STDOUT,
